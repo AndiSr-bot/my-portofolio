@@ -90,7 +90,7 @@
 						<p>
 							Copyright &copy;
 							<script>document.write(new Date().getFullYear());</script> All rights reserved
-							<span><a href="{{ route('dashboard') }}" style="color:#000410">admin</a></span>
+							<!-- <span><a href="{{ route('dashboard') }}" style="color:#000410">admin</a></span> -->
 						</p>
 					</aside>
 				</div>

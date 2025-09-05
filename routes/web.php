@@ -30,20 +30,21 @@ Route::get('/services', [HomeController::class,'services'])->name('services');
 Route::get('/services/{id}', [HomeController::class,'orderService'])->name('order-service');
 Route::get('/contact', [HomeController::class,'contact'])->name('contact');
 Route::post('/dashboard/message', [_MessageController::class,'store'])->name('create-message');
+Route::get('/dashboard/profile/{email}', [_UserController::class,'getUserByEmail'])->name('get-user-by-email'); 
 
 Route::middleware(['guest'])->group(function () { 
     Route::get('/login', [AuthController::class,'index'])->name('view-login');
     Route::post('/login', [AuthController::class,'login'])->name('login');
 });
 
-Route::middleware(['auth'])->group(function () { 
+Route::middleware(['cek.auth'])->group(function () { 
     // DASHBOARD
     Route::get('/dashboard', [_DashboardController::class,'index'])->name('dashboard');
-    
+
     //PROFILE
     Route::get('/dashboard/profile', [_UserController::class,'index'])->name('profile'); 
     Route::put('/dashboard/profile/{id}', [_UserController::class,'update'])->name('update-profile'); 
-    
+
     //SOCIAL MEDIA
     Route::post('/dashboard/social', [_SocialController::class,'store'])->name('create-social'); 
     Route::put('/dashboard/social/{id}', [_SocialController::class,'update'])->name('update-social'); 

@@ -9,9 +9,14 @@ class _MessageController extends Controller
 {
     public function index()
     {
-        $messageCount = Message::where('isRead', null)->count();
-        $message = Message::orderBy('isRead', 'desc')->orderBy('id', 'desc')->get();
-        return view('_admin/_message/_message', compact('message', 'messageCount'));
+        // $messageCount = Message::where('isRead', null)->count();
+        $message = Message::orderBy('isRead', 'asc')->orderBy('id', 'asc')->get();
+        return response()->json([
+            'status' => 'Ok',
+            // 'messageCount' => $messageCount,
+            'message' => $message
+        ]);
+        // return view('_admin/_message/_message', compact('message', 'messageCount'));
     }
     public function getById($id)
     {
@@ -34,6 +39,10 @@ class _MessageController extends Controller
         $message->subject = $request->input('subject');
         $message->message = $request->input('message');
         $message->save();
-        return redirect('/contact')->with('status', 'Message Added Successfully');
+        
+        return response()->json([
+            'status' => 'Message Added Successfully'
+        ]);
+        // return redirect('/contact')->with('status', 'Message Added Successfully');
     }
 }

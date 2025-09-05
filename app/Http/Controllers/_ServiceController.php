@@ -10,9 +10,15 @@ class _ServiceController extends Controller
 {
     public function index()
     {
-        $messageCount = Message::where('isRead', null)->count();
+        // $messageCount = Message::where('isRead', null)->count();
         $service = Service::orderBy('id', 'asc')->get();
-        return view('_admin/_service/_service', compact('service', 'messageCount'));
+        
+        return response()->json([
+            'status' => 'Ok',
+            // 'messageCount' => $messageCount,
+            'service' => $service
+        ]);
+        // return view('_admin/_service/_service', compact('service', 'messageCount'));
     }
     public function getById($id)
     {
@@ -30,7 +36,11 @@ class _ServiceController extends Controller
         $service->name = $request->input('name');
         $service->description = $request->input('description');
         $service->save();
-        return redirect('/dashboard/service')->with('status', 'Service Added Successfully');
+        
+        return response()->json([
+            'status' => 'Service Added Successfully'
+        ]);
+        // return redirect('/dashboard/service')->with('status', 'Service Added Successfully');
     }
     public function update(Request $request, $id)
     {
@@ -42,6 +52,10 @@ class _ServiceController extends Controller
         $service->name = $request->input('name');
         $service->description = $request->input('description');
         $service->update();
-        return redirect('/dashboard/service')->with('status', 'Service Updated Successfully');
+        
+        return response()->json([
+            'status' => 'Service Updated Successfully'
+        ]);
+        // return redirect('/dashboard/service')->with('status', 'Service Updated Successfully');
     }
 }

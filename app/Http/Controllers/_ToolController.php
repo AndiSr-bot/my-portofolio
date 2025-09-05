@@ -10,9 +10,15 @@ class _ToolController extends Controller
 {
     public function index()
     {
-        $messageCount = Message::where('isRead', null)->count();
+        // $messageCount = Message::where('isRead', null)->count();
         $tool = Tool::orderBy('counter', 'desc')->get();
-        return view('_admin/_tool/_tool', compact('tool', 'messageCount'));
+        
+        return response()->json([
+            'status' => 'Ok',
+            // 'messageCount' => $messageCount,
+            'tool' => $tool
+        ]);
+        // return view('_admin/_tool/_tool', compact('tool', 'messageCount'));
     }
     public function getById($id)
     {
@@ -30,7 +36,11 @@ class _ToolController extends Controller
         $tool->name = $request->input('name');
         $tool->counter = $request->input('counter');
         $tool->save();
-        return redirect('/dashboard/tool')->with('status', 'Tool Added Successfully');
+        
+        return response()->json([
+            'status' => 'Tool Added Successfully'
+        ]);
+        // return redirect('/dashboard/tool')->with('status', 'Tool Added Successfully');
     }
     public function update(Request $request, $id)
     {
@@ -42,6 +52,10 @@ class _ToolController extends Controller
         $tool->name = $request->input('name');
         $tool->counter = $request->input('counter');
         $tool->update();
-        return redirect('/dashboard/tool')->with('status', 'Tool Updated Successfully');
+        
+        return response()->json([
+            'status' => 'Tool Updated Successfully'
+        ]);
+        // return redirect('/dashboard/tool')->with('status', 'Tool Updated Successfully');
     }
 }
